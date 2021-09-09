@@ -24,7 +24,6 @@ class ProdutoModel {
     this.promocao,
     required this.descricao,
     this.imagem,
-
   });
 
   static ProdutoModel fromMap(Map<String, dynamic> map, [String? key]) =>
@@ -39,7 +38,6 @@ class ProdutoModel {
         promocao: map['promocao'],
         descricao: map['descricao'],
         imagem: map['imagem']?.bytes,
-
       );
 
   Map<String, dynamic> toMap() => {
@@ -52,7 +50,5 @@ class ProdutoModel {
         'promocao': promocao,
         'descricao': descricao,
         'imagem': imagem != null ? Blob(imagem!) : null,
-
-
       };
 }
