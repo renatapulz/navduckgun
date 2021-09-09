@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:duck_gun/pages/navegacao/perfil.dart';
 import 'package:provider/provider.dart';
 import 'package:duck_gun/pages/controllers/user_controller.dart';
-import 'package:duck_gun/pages/navegacao/perfil.dart';
 import 'package:duck_gun/pages/navegacao/produtos.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -24,10 +23,10 @@ class _NavState extends State<Nav> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
+  late List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     Historico(),
-    Perfil(),
+    Perfil(dados: userController.model),
   ];
 
   void _onItemTapped(int index) {
