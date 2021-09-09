@@ -37,44 +37,44 @@ class _PromoPageState extends State<PromoPage> {
         }).toList();
         return CarouselSlider.builder(
           options: CarouselOptions(
-            aspectRatio: 9 / 3,
+            height: 300,
             autoPlay: true,
           ),
           itemCount: promo.length,
           itemBuilder: (context, index, pageIndex) {
             final item = promo[index];
             return item.imagem != null
-                ? Container(
-                    width: 500,
-                    height: 300,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: MemoryImage(item.imagem!),
-                            fit: BoxFit.fill)),
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: Text(
-                            item.produto,
-                            style: estiloTexto,
-                          ),
+                ? Column(
+                    children: [
+                      Container(
+                        width: 300,
+                        height: 200,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: MemoryImage(item.imagem!),
+                                fit: BoxFit.fill)),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      ),
+                      Container(
+                        child: Text(
+                          item.produto,
+                          style: estiloTexto,
                         ),
-                        Container(
-                          child: Text(
-                            'R\$${item.preco}',
-                            style: estiloTexto,
-                          ),
+                      ),
+                      Container(
+                        child: Text(
+                          'R\$${item.preco}',
+                          style: estiloTexto,
                         ),
-                        Container(
-                          child: Text(
-                            item.categoria,
-                            style: estiloTexto,
-                          ),
+                      ),
+                      Container(
+                        child: Text(
+                          item.categoria,
+                          style: estiloTexto,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
