@@ -15,8 +15,17 @@ class _DisplayWidgetState extends State<DisplayWidget> {
     letterSpacing: 1.0,
     fontSize: 18,
   );
+  final estiloTextoNome = TextStyle(
+    color: Color(0xFF0D0D0D),
+    fontWeight: FontWeight.bold,
+    letterSpacing: 1.0,
+    fontSize: 20,
+  );
   final estiloTexto =
       TextStyle(color: Colors.black, letterSpacing: 1.0, fontSize: 18);
+
+  final estiloTextoBotao =
+      TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18);
 
   final borderDeco = BoxDecoration(
     border: Border.all(color: Color(0xFFA8BFB2)),
@@ -39,7 +48,9 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 20),
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Colors.green,
+                    ),
                   ),
                 );
               }
@@ -53,6 +64,7 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                       .contains(filterController.searchValue.toLowerCase()))
                   .toList();
               return ListView.builder(
+                physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: promo.length,
                 itemBuilder: (context, index) {
@@ -67,10 +79,10 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                           Container(
                             child: prod.imagem != null
                                 ? Container(
+                                    width: 300,
                                     child: Image.memory(
                                       prod.imagem!,
-                                      width: 280,
-                                      height: 280,
+                                      width: 200,
                                     ),
                                   )
                                 : Container(
@@ -85,7 +97,7 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                             margin: EdgeInsets.symmetric(vertical: 1),
                             child: Text(
                               prod.produto,
-                              style: estiloTexto,
+                              style: estiloTextoNome,
                             ),
                           ),
                           Container(
@@ -108,8 +120,16 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 1),
                             child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  Color(0xFF4D734F),
+                                ),
+                              ),
                               onPressed: () {},
-                              child: Text('Comprar'),
+                              child: Text(
+                                'Comprar',
+                                style: estiloTextoBotao,
+                              ),
                             ),
                           ),
                         ],

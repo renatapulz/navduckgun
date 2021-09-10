@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import '../my_flutter_app_icons.dart';
 import 'historico.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Nav extends StatefulWidget {
   const Nav({Key? key}) : super(key: key);
@@ -42,7 +43,13 @@ class _NavState extends State<Nav> {
       appBar: AppBar(
         backgroundColor: Color(0xFF4D734F),
         centerTitle: true,
-        title: Text('Duck Gun'),
+        title: Text(
+          'Duck Gun',
+          style: GoogleFonts.pressStart2p(
+            textStyle: TextStyle(
+                fontSize: 32, fontWeight: FontWeight.w300, letterSpacing: -1.5),
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {},

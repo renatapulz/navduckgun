@@ -16,12 +16,16 @@ class _PromoPageState extends State<PromoPage> {
     letterSpacing: 1.0,
     fontSize: 18,
   );
-  final estiloTexto =
-      TextStyle(color: Colors.black, letterSpacing: 1.0, fontSize: 18);
+  final estiloTexto = TextStyle(
+      color: Colors.black,
+      letterSpacing: 1.0,
+      fontSize: 18,
+      fontWeight: FontWeight.bold);
 
   final borderDeco = BoxDecoration(
-    border: Border.all(color: Color(0xFFA8BFB2)),
-  );
+      border: Border.all(
+    color: Color(0xFFA8BFB2),
+  ));
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class _PromoPageState extends State<PromoPage> {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 20),
             child: Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Colors.green),
             ),
           );
         }
@@ -45,7 +49,7 @@ class _PromoPageState extends State<PromoPage> {
         }).toList();
         return CarouselSlider.builder(
           options: CarouselOptions(
-            height: 300,
+            height: 310,
             autoPlay: true,
           ),
           itemCount: promo.length,
