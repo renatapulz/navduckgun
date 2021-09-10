@@ -10,6 +10,7 @@ class PromoPage extends StatefulWidget {
 
 class _PromoPageState extends State<PromoPage> {
   final estiloTextoPromo = TextStyle(
+    fontFamily: 'Electrolize',
     color: Colors.green,
     fontWeight: FontWeight.bold,
     letterSpacing: 1.0,
