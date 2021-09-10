@@ -18,6 +18,10 @@ class _DisplayWidgetState extends State<DisplayWidget> {
   final estiloTexto =
       TextStyle(color: Colors.black, letterSpacing: 1.0, fontSize: 18);
 
+  final borderDeco = BoxDecoration(
+    border: Border.all(color: Color(0xFFA8BFB2)),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,8 +36,11 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(),
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               }
               final promo = snapshot.data!.docs
@@ -51,6 +58,8 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                 itemBuilder: (context, index) {
                   final prod = promo[index];
                   return Container(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    decoration: borderDeco,
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     child: Center(
                       child: Column(
@@ -60,8 +69,8 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                                 ? Container(
                                     child: Image.memory(
                                       prod.imagem!,
-                                      width: 250,
-                                      height: 250,
+                                      width: 280,
+                                      height: 280,
                                     ),
                                   )
                                 : Container(
@@ -73,28 +82,35 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                                   ),
                           ),
                           Container(
+                            margin: EdgeInsets.symmetric(vertical: 1),
                             child: Text(
                               prod.produto,
                               style: estiloTexto,
                             ),
                           ),
                           Container(
+                            margin: EdgeInsets.symmetric(vertical: 1),
                             child: Text(
                               prod.promocao!
-                                  ? '*Super Promoção R\$${prod.preco}'
+                                  ? '*Super Promoção\n R\$${prod.preco}'
                                   : 'R\$${prod.preco}',
                               style: estiloTextoPromo,
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           Container(
+                            margin: EdgeInsets.symmetric(vertical: 1),
                             child: Text(
                               prod.categoria,
                               style: estiloTexto,
                             ),
                           ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Comprar'),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 1),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text('Comprar'),
+                            ),
                           ),
                         ],
                       ),

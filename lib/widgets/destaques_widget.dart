@@ -19,6 +19,10 @@ class _PromoPageState extends State<PromoPage> {
   final estiloTexto =
       TextStyle(color: Colors.black, letterSpacing: 1.0, fontSize: 18);
 
+  final borderDeco = BoxDecoration(
+    border: Border.all(color: Color(0xFFA8BFB2)),
+  );
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -28,8 +32,11 @@ class _PromoPageState extends State<PromoPage> {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(),
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 20),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         final promo = snapshot.data!.docs.map((map) {
@@ -45,60 +52,66 @@ class _PromoPageState extends State<PromoPage> {
           itemBuilder: (context, index, pageIndex) {
             final item = promo[index];
             return item.imagem != null
-                ? Column(
-                    children: [
-                      Container(
-                        width: 300,
-                        height: 200,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: MemoryImage(item.imagem!),
-                                fit: BoxFit.fill)),
-                        margin:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      ),
-                      Container(
-                        child: Text(
-                          item.produto,
-                          style: estiloTexto,
+                ? Container(
+                    decoration: borderDeco,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 300,
+                          height: 200,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: MemoryImage(item.imagem!),
+                                  fit: BoxFit.fill)),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
                         ),
-                      ),
-                      Container(
-                        child: Text(
-                          'R\$${item.preco}',
-                          style: estiloTexto,
+                        Container(
+                          child: Text(
+                            item.produto,
+                            style: estiloTexto,
+                          ),
                         ),
-                      ),
-                      Container(
-                        child: Text(
-                          item.categoria,
-                          style: estiloTexto,
+                        Container(
+                          child: Text(
+                            'R\$${item.preco}',
+                            style: estiloTexto,
+                          ),
                         ),
-                      ),
-                    ],
+                        Container(
+                          child: Text(
+                            item.categoria,
+                            style: estiloTexto,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text(
-                          item.produto,
-                          style: estiloTexto,
+                : Container(
+                    decoration: borderDeco,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          child: Text(
+                            item.produto,
+                            style: estiloTexto,
+                          ),
                         ),
-                      ),
-                      Container(
-                        child: Text(
-                          'R\$${item.preco}',
-                          style: estiloTexto,
+                        Container(
+                          child: Text(
+                            'R\$${item.preco}',
+                            style: estiloTexto,
+                          ),
                         ),
-                      ),
-                      Container(
-                        child: Text(
-                          item.categoria,
-                          style: estiloTexto,
+                        Container(
+                          child: Text(
+                            item.categoria,
+                            style: estiloTexto,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
           },
         );
