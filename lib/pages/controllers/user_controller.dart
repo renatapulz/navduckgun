@@ -46,7 +46,7 @@ class UserController extends ChangeNotifier {
   }
 
   //crio uma funcao logout, que nao retorna nada, vai ser assincrona, pq ela vai esperar - pra voltar a pagina de login
-  Future<void> logout() async {
+   Future<void> logout() async {
     await _auth.signOut();
   }
 
