@@ -2,6 +2,7 @@ import 'package:duck_gun/models/user_model.dart';
 import 'package:duck_gun/pages/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class Perfil extends StatefulWidget {
   final UserModel dados;
@@ -13,6 +14,11 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
+
+  late final userController = Provider.of<UserController>(
+    context,
+    listen: false,
+  );
 
   late final nomeCont = TextEditingController()..text = widget.dados.nome;
   late final cpfCont = TextEditingController()..text = widget.dados.cpf;
@@ -131,22 +137,21 @@ class _PerfilState extends State<Perfil> {
                   ),
                 ),
               ),
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //   primary: Color(0xFF4D734F), // background
-              //   onPrimary: Color(0xFF0D0D0D), // foreground
-              //   ),
-              //   onPressed: () async {
-              //     await UserController.logout();
-              //     },
-              //   child: Text('sair'),
-              // ),
-              // IconButton(
-              //   onPressed: () async {
-              //     await UserController.logout();
-              //   },
-              //   icon: Icon(Icons.exit_to_app),
-              // )
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 20),
+                child: TextButton.icon(
+                  onPressed: () async {
+                    await userController.logout();
+                  },
+                  label: Text('Sair'),
+                  icon: Icon(Icons.exit_to_app),
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Color(0xFF4D734F),
+                    padding: EdgeInsets.all(10),
+                  ),
+                ),
+              )
             ],
           ),
         ),
