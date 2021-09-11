@@ -31,6 +31,7 @@ class _PerfilState extends State<Perfil> {
   late final cepCont = TextEditingController()..text = widget.dados.cep;
   late final keyCont = TextEditingController()..text = widget.dados.key!;
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,121 +39,167 @@ class _PerfilState extends State<Perfil> {
         child: Container(
           padding: EdgeInsets.all(10),
           margin: EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: nomeCont,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'Nome Completo',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 12),
-              TextFormField(
-                controller: enderecoCont,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'Endereço',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 12),
-              TextFormField(
-                controller: numeroCont,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Número',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 12),
-              TextFormField(
-                controller: bairroCont,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'Bairro',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 12),
-              TextFormField(
-                controller: cidadeCont,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'Cidade',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 12),
-              TextFormField(
-                controller: estadoCont,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'Estado',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 12),
-              TextFormField(
-                controller: cepCont,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Cep',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 8),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF4D734F), // background
-                  onPrimary: Color(0xFF0D0D0D),
-                  // foreground
-                ),
-                onPressed: () async {
-                  final atualizado = UserModel(
-                    //  ownerKey: widget.dados.ownerKey,
-                    nome: nomeCont.text,
-                    cpf: cpfCont.text,
-                    registro: registroCont.text,
-                    endereco: enderecoCont.text,
-                    numero: numeroCont.text,
-                    bairro: bairroCont.text,
-                    cidade: cidadeCont.text,
-                    estado: estadoCont.text,
-                    cep: cepCont.text,
-                    key: keyCont.text,
-                    //imagem: file,
-                  ).toMap();
-
-                  await FirebaseFirestore.instance
-                      .collection('usuarios')
-                      .doc(widget.dados.key)
-                      .update(atualizado);
-                },
-                child: Text(
-                  "Atualizar dados",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 20),
-                child: TextButton.icon(
-                  onPressed: () async {
-                    await userController.logout();
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  validator: (texto) {
+                    if (texto == null || texto.isEmpty || texto.length < 3) {
+                      return 'Digite seu nome';
+                    }
+                    return null;
                   },
-                  label: Text('Sair'),
-                  icon: Icon(Icons.exit_to_app),
-                  style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: Color(0xFF4D734F),
-                      padding: EdgeInsets.all(10),
+                  controller: nomeCont,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: 'Nome Completo',
+                    border: OutlineInputBorder(),
                   ),
                 ),
-              )
-            ],
+                SizedBox(height: 12),
+                TextFormField(
+                  validator: (texto) {
+                    if (texto == null || texto.isEmpty) {
+                      return 'Digite o endereço';
+                    }
+                    return null;
+                  },
+                  controller: enderecoCont,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: 'Endereço',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  validator: (texto) {
+                    if (texto == null || texto.isEmpty) {
+                      return 'Digite o número da residência';
+                    }
+                    return null;
+                  },
+                  controller: numeroCont,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Número',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  validator: (texto) {
+                    if (texto == null || texto.isEmpty) {
+                      return 'Digite o nome do bairro';
+                    }
+                    return null;
+                  },
+                  controller: bairroCont,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: 'Bairro',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  validator: (texto) {
+                    if (texto == null || texto.isEmpty) {
+                      return 'Digite o nome da cidade';
+                    }
+                    return null;
+                  },
+                  controller: cidadeCont,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: 'Cidade',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  validator: (texto) {
+                    if (texto == null || texto.isEmpty) {
+                      return 'Digite o nome do estado';
+                    }
+                    return null;
+                  },
+                  controller: estadoCont,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: 'Estado',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 12),
+                TextFormField(
+                  validator: (texto) {
+                    if (texto == null || texto.isEmpty || texto.length < 8) {
+                      return 'Digite seu cep';
+                    }
+                    return null;
+                  },
+                  controller: cepCont,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Cep',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF4D734F), // background
+                    onPrimary: Color(0xFF0D0D0D),
+                    // foreground
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final atualizado = UserModel(
+                        //  ownerKey: widget.dados.ownerKey,
+                        nome: nomeCont.text,
+                        cpf: cpfCont.text,
+                        registro: registroCont.text,
+                        endereco: enderecoCont.text,
+                        numero: numeroCont.text,
+                        bairro: bairroCont.text,
+                        cidade: cidadeCont.text,
+                        estado: estadoCont.text,
+                        cep: cepCont.text,
+                        key: keyCont.text,
+                        //imagem: file,
+                      ).toMap();
+                      await FirebaseFirestore.instance
+                          .collection('usuarios')
+                          .doc(widget.dados.key)
+                          .update(atualizado);
+                    }
+                  },
+                  child: Text(
+                    "Atualizar dados",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  child: TextButton.icon(
+                    onPressed: () async {
+                      await userController.logout();
+                    },
+                    label: Text('Sair'),
+                    icon: Icon(Icons.exit_to_app),
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Color(0xFF4D734F),
+                        padding: EdgeInsets.all(10),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

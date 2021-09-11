@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'controllers/user_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:cpf_cnpj_validator/cpf_validator.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -81,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
                       SizedBox(height: 12),
                       TextFormField(
                         validator: (texto) {
-                          if (texto == null || texto.isEmpty) {
+                          if (texto == null || texto.isEmpty || texto.length < 3) {
                             return 'Digite seu nome';
                           }
                           return null;
@@ -128,6 +129,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty || !CPFValidator.isValid(texto)) {
+                            return 'Digite um cpf válido';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => cpf = texto,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -217,6 +224,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty || texto.length < 8) {
+                            return 'Digite seu cep';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => cep = texto,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
