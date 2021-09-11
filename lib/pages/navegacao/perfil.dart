@@ -148,7 +148,7 @@ class _PerfilState extends State<Perfil> {
                   style: TextButton.styleFrom(
                     primary: Colors.white,
                     backgroundColor: Color(0xFF4D734F),
-                    padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10),
                   ),
                 ),
               )

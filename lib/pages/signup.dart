@@ -1,5 +1,6 @@
 import 'package:duck_gun/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'controllers/user_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,7 @@ class _SignupPageState extends State<SignupPage> {
   String cidade = "";
   String estado = "";
   String cep = "";
+  final _formKey = GlobalKey<FormState>();
 
   late final userController = Provider.of<UserController>(
     context,
@@ -61,6 +63,7 @@ class _SignupPageState extends State<SignupPage> {
             SizedBox(height: 12),
             Container(
               child: Form(
+                key: _formKey,
                 child: Container(
                   padding: EdgeInsets.all(10),
                   child: Column(
@@ -76,6 +79,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty) {
+                            return 'Digite seu nome';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => nome = texto,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
@@ -96,6 +105,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty) {
+                            return 'Digite o número de registro';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => registro = texto,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -111,10 +126,16 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(),
                             errorStyle: TextStyle(color: Colors.red.shade700),
                             hintText: '123.456.789-10',
-                            labelText: 'Informe seu CPF'),
+                            labelText: 'CPF'),
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty) {
+                            return 'Digite o endereço';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => endereco = texto,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
@@ -125,6 +146,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty) {
+                            return 'Digite o número da residência';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => numero = texto,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -135,6 +162,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty) {
+                            return 'Digite o nome do bairro';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => bairro = texto,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
@@ -145,6 +178,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty) {
+                            return 'Digite o nome da cidade';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => cidade = texto,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
@@ -155,6 +194,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty) {
+                            return 'Digite o nome do estado';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => estado = texto,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
@@ -175,6 +220,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty || texto.length < 8) {
+                            return 'Digite uma senah com 8 ou mais caracteres';
+                          }
+                          return null;
+                        },
                         obscureText: true,
                         onChanged: (texto) => senha = texto,
                         keyboardType: TextInputType.number,
@@ -192,19 +243,21 @@ class _SignupPageState extends State<SignupPage> {
                             onPrimary: Color(0xFF0D0D0D), // foreground
                           ),
                           onPressed: () async {
-                            final user = UserModel(
-                              nome: nome,
-                              registro: registro,
-                              cpf: cpf,
-                              endereco: endereco,
-                              numero: numero,
-                              bairro: bairro,
-                              cidade: cidade,
-                              estado: estado,
-                              cep: cep,
-                            );
-                            await userController.signup((email), senha, user);
-                            Navigator.pop(context);
+                            if (_formKey.currentState!.validate()) {
+                              final user = UserModel(
+                                nome: nome,
+                                registro: registro,
+                                cpf: cpf,
+                                endereco: endereco,
+                                numero: numero,
+                                bairro: bairro,
+                                cidade: cidade,
+                                estado: estado,
+                                cep: cep,
+                              );
+                              await userController.signup((email), senha, user);
+                              Navigator.pop(context);
+                            }
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 16.0),
