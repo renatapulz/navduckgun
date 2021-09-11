@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'controllers/user_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -95,6 +96,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        validator: (texto) {
+                          if (texto == null || texto.isEmpty || !EmailValidator.validate(texto)) {
+                            return 'Digite um email válido';
+                          }
+                          return null;
+                        },
                         onChanged: (texto) => email = texto,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -222,7 +229,7 @@ class _SignupPageState extends State<SignupPage> {
                       TextFormField(
                         validator: (texto) {
                           if (texto == null || texto.isEmpty || texto.length < 8) {
-                            return 'Digite uma senah com 8 ou mais caracteres';
+                            return 'Digite uma senha com 8 ou mais caracteres';
                           }
                           return null;
                         },
