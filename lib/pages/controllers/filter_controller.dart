@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 final filterController = FilterController();
 
 class FilterController extends ChangeNotifier {
-  String dropdownValue1 = 'Fuzil';
+  String dropdownValue1 = 'Diversos';
   String dropdownValue2 = 'produto';
   String searchValue = '';
 

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:duck_gun/models/produto_model.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PromoPage extends StatefulWidget {
   @override
@@ -9,14 +10,13 @@ class PromoPage extends StatefulWidget {
 }
 
 class _PromoPageState extends State<PromoPage> {
-  final estiloTextoPromo = TextStyle(
-    fontFamily: 'Electrolize',
+  final estiloTextoPromo = GoogleFonts.roboto(
     color: Colors.green,
     fontWeight: FontWeight.bold,
     letterSpacing: 1.0,
     fontSize: 18,
   );
-  final estiloTexto = TextStyle(
+  final estiloTexto = GoogleFonts.roboto(
       color: Colors.black,
       letterSpacing: 1.0,
       fontSize: 18,
@@ -74,18 +74,21 @@ class _PromoPageState extends State<PromoPage> {
                           child: Text(
                             item.produto,
                             style: estiloTexto,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                         Container(
                           child: Text(
                             'R\$${item.preco}',
-                            style: estiloTexto,
+                            style: estiloTextoPromo,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                         Container(
                           child: Text(
                             item.categoria,
                             style: estiloTexto,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],

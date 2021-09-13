@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final estiloTexto =
       TextStyle(color: Colors.black, letterSpacing: 1.0, fontSize: 18);
   final estiloTitle = GoogleFonts.pressStart2p(
-      color: Colors.black, letterSpacing: 1.5, fontSize: 20);
+      color: Color(0xFF0D0D0D), letterSpacing: 1.5, fontSize: 20);
 
   @override
   Widget build(BuildContext context) {

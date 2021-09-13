@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:duck_gun/models/produto_model.dart';
 import 'package:duck_gun/pages/controllers/filter_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DisplayWidget extends StatefulWidget {
   @override
@@ -9,23 +10,23 @@ class DisplayWidget extends StatefulWidget {
 }
 
 class _DisplayWidgetState extends State<DisplayWidget> {
-  final estiloTextoPromo = TextStyle(
-    color: Colors.green,
+  final estiloTextoPromo = GoogleFonts.roboto(
+    color: Colors.black,
     fontWeight: FontWeight.bold,
     letterSpacing: 1.0,
     fontSize: 18,
   );
-  final estiloTextoNome = TextStyle(
+  final estiloTextoNome = GoogleFonts.roboto(
     color: Color(0xFF0D0D0D),
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
     letterSpacing: 1.0,
     fontSize: 20,
   );
   final estiloTexto =
       TextStyle(color: Colors.black, letterSpacing: 1.0, fontSize: 18);
 
-  final estiloTextoBotao =
-      TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18);
+  final estiloTextoBotao = GoogleFonts.roboto(
+      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18);
 
   final borderDeco = BoxDecoration(
     border: Border.all(color: Color(0xFFA8BFB2)),
@@ -104,7 +105,7 @@ class _DisplayWidgetState extends State<DisplayWidget> {
                             margin: EdgeInsets.symmetric(vertical: 1),
                             child: Text(
                               prod.promocao!
-                                  ? '*Super Promoção\n R\$${prod.preco}'
+                                  ? '*Super Promoção*\n R\$${prod.preco}'
                                   : 'R\$${prod.preco}',
                               style: estiloTextoPromo,
                               textAlign: TextAlign.center,

@@ -40,12 +40,12 @@ class _FilterWidgetState extends State<FilterWidget> {
                     });
                   },
                   items: <String>[
+                    'Diversos',
                     'Fuzil',
                     'Pistola',
                     'Aéreo',
                     'Tanque',
                     'Granadas',
-                    'Diversos',
                   ].map<DropdownMenuItem<String>>(
                     (String value) {
                       return DropdownMenuItem<String>(
